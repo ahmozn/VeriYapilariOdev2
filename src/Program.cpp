@@ -22,11 +22,15 @@ int main(){
     auto start=chrono::high_resolution_clock::now(); //okuma ekleme süresi hesaplayici
     cout<<"agaclar.txt okunuyor..."<<endl;
 
+
     char ch;
+    int satir=0;
     BST currentTree;
     while(fileAgaclar.get(ch)){
         if(ch=='\n'){
-            agaclar.agacEkle(currentTree);
+            satir++;
+            cout<<currentTree.height(currentTree.getRoot())<<endl;
+            agaclar.agacEkle(currentTree,satir);
             currentTree=BST();
         }
         else{
@@ -38,4 +42,7 @@ int main(){
     auto duration=chrono::duration_cast<chrono::milliseconds>(end-start);
     cout<<duration.count()<<" ms"<<endl; //okuma ekleme işlemi ne kadar sürdü
     fileAgaclar.close();    //agaclar.txt kapatıldı
+
+    agaclar.agacyaz();
+    agaclar.ekranaBas();
 }

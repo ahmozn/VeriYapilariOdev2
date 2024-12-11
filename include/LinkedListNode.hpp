@@ -5,9 +5,10 @@
 
 class LinkedListNode{
     public:
+        int index;
         BST tree;
         LinkedListNode* next;
-        LinkedListNode();
+        LinkedListNode(int index);
         ~LinkedListNode();
 };
 

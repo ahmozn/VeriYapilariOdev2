@@ -3,6 +3,8 @@
 
 #include "LinkedListNode.hpp"
 
+class LinkedListNode;
+
 class LinkedList{
     private: 
         LinkedListNode* head;
@@ -10,7 +12,10 @@ class LinkedList{
     public:
         LinkedList();   //constructor
 
-        void agacEkle(const BST& bst); //listeye ağaç ekleme
+        void agacEkle(const BST& bst, int satir); //listeye ağaç ekleme
+
+        void agacyaz()const;
+        void ekranaBas();
 
         ~LinkedList();  //destructor
 };

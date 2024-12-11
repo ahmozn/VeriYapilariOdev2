@@ -1,4 +1,4 @@
 #include "LinkedListNode.hpp"
 
-LinkedListNode::LinkedListNode(): next(nullptr){}
+LinkedListNode::LinkedListNode(int index): index(index),next(nullptr){}
 LinkedListNode::~LinkedListNode(){}
