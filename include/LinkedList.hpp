@@ -9,6 +9,9 @@ class LinkedList{
     private: 
         LinkedListNode* head;
         LinkedListNode* last;
+        void adres();
+        void deger();
+        void adresNext();
     public:
         LinkedList();   //constructor
 

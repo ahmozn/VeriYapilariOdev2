@@ -3,6 +3,56 @@
 
 using namespace std;
 
+void LinkedList::adres(){
+    LinkedListNode* temp=head;
+    
+    for(int i=0; i<last->index;i++){
+        cout<<".........\t";
+    }
+    cout<<endl;
+
+    while(temp!=nullptr){
+        cout<<". "<<((int)temp)%10000<<"\t.\t";
+        temp=temp->next;
+    }
+    cout<<endl;
+
+    for(int i=0; i<last->index;i++){
+        cout<<".........\t";
+    }
+    cout<<endl;
+}
+
+void LinkedList::deger(){
+    LinkedListNode* temp=head;
+
+    while(temp!=nullptr){
+        cout<<". "<<temp->tree.toplam(temp->tree.getRoot())<<"\t.\t";
+        temp=temp->next;
+    }
+    cout<<endl;
+
+    for(int i=0; i<last->index;i++){
+        cout<<".........\t";
+    }
+    cout<<endl;
+}
+
+void LinkedList::adresNext(){
+    LinkedListNode* temp=head;
+
+    while(temp!=nullptr){
+        cout<<". "<<((int)temp->next)%10000<<"\t.\t";
+        temp=temp->next;
+    }
+    cout<<endl;
+
+    for(int i=0; i<last->index;i++){
+        cout<<".........\t";
+    }
+    cout<<endl;
+}
+
 LinkedList::LinkedList():head(nullptr), last(nullptr){}
 
 void LinkedList::agacEkle(const BST& bst, int satir){
@@ -29,16 +79,11 @@ void LinkedList::agacyaz()const {
 }
 
 void LinkedList::ekranaBas(){
-    LinkedListNode* temp=head;
-    for(int i=0; i<=last->index;i++){
-        cout<<"........\t";
-    }
-    cout<<endl;
-    while(temp!=nullptr){
-        cout<<".  "<<&temp<<" .\t";
-        temp=temp->next;
-    }
-    cout<<endl;
+    adres();
+    //--------------------------------------------------------------------
+    deger();
+    //--------------------------------------------------------------------
+    adresNext();
 }
 
 //destructor
