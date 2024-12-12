@@ -44,5 +44,8 @@ int main(){
     fileAgaclar.close();    //agaclar.txt kapatıldı
 
     agaclar.agacyaz();
-    agaclar.ekranaBas();
+    agaclar.ekranaBas(0,10);
+    agaclar.ekranaBas(11,100);
+
+
 }

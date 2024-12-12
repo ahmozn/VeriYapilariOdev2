@@ -3,51 +3,72 @@
 
 using namespace std;
 
-void LinkedList::adres(){
+void LinkedList::adres(int start, int end){
     LinkedListNode* temp=head;
-    
-    for(int i=0; i<last->index;i++){
+    if(start==0){
+        temp=temp;
+    }else{
+        while(temp!=nullptr && temp->index!=start){
+            temp=temp->next;
+        }
+    }
+
+    for(int i=start; i<end && i<=last->index;i++){
         cout<<".........\t";
     }
     cout<<endl;
 
-    while(temp!=nullptr){
+    while(temp!=nullptr && temp->index>=start && temp->index<=end){
         cout<<". "<<((int)temp)%10000<<"\t.\t";
         temp=temp->next;
     }
     cout<<endl;
 
-    for(int i=0; i<last->index;i++){
+    for(int i=start; i<end && i<=last->index;i++){
         cout<<".........\t";
     }
     cout<<endl;
 }
 
-void LinkedList::deger(){
+void LinkedList::deger(int start, int end){
     LinkedListNode* temp=head;
+    if(start==0){
+        temp=temp;
+    }else{
+        while(temp!=nullptr && temp->index!=start){
+            temp=temp->next;
+        }
+    }
 
-    while(temp!=nullptr){
+    while(temp!=nullptr && temp->index>=start && temp->index<=end){
         cout<<". "<<temp->tree.toplam(temp->tree.getRoot())<<"\t.\t";
         temp=temp->next;
     }
     cout<<endl;
 
-    for(int i=0; i<last->index;i++){
+    for(int i=start; i<end && i<=last->index;i++){
         cout<<".........\t";
     }
     cout<<endl;
 }
 
-void LinkedList::adresNext(){
+void LinkedList::adresNext(int start, int end){
     LinkedListNode* temp=head;
+    if(start==0){
+        temp=temp;
+    }else{
+        while(temp!=nullptr && temp->index!=start){
+            temp=temp->next;
+        }
+    }
 
-    while(temp!=nullptr){
+    while(temp!=nullptr && temp->index>=start && temp->index<=end){
         cout<<". "<<((int)temp->next)%10000<<"\t.\t";
         temp=temp->next;
     }
     cout<<endl;
 
-    for(int i=0; i<last->index;i++){
+    for(int i=start; i<end && i<=last->index;i++){
         cout<<".........\t";
     }
     cout<<endl;
@@ -78,12 +99,11 @@ void LinkedList::agacyaz()const {
     }
 }
 
-void LinkedList::ekranaBas(){
-    adres();
-    //--------------------------------------------------------------------
-    deger();
-    //--------------------------------------------------------------------
-    adresNext();
+void LinkedList::ekranaBas(int start, int end){
+    adres(start,end);
+    deger(start,end);
+    adresNext(start,end);
+    
 }
 
 //destructor
