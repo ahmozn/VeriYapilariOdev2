@@ -1,8 +1,17 @@
+/**
+ * @file         Program.cpp
+ * @description  Verilen agaclar.txt dosyasını tarar, her satırda ağaç oluşturur. Satırdaki karakterleri ilgili ağaca ekler.
+ *               Liste üzerinde A ve D tuşları ile gezilebilir, bulunulan düğümdeki ağaç gösterilir. İlgili düğümü silme,
+ *               düğümdeki ağacı aynalama gibi işlemleri gerçekleştirir.
+ * @course       2. Öğretim A grubu
+ * @assignment   2024-2025 Güz, 2. Ödev
+ * @date         11.12.2024
+ * @author       Ahmet Özhan ÖZEN   ozhan.ozen@ogr.sakarya.edu.tr
+ */
 #include "BST.hpp"
 #include "LinkedList.hpp"
 #include <iostream>
 #include <fstream>
-#include <sstream>
 #include <chrono>
 
 using namespace std;

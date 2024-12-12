@@ -1,3 +1,12 @@
+/**
+ * @file         LinkedList.cpp
+ * @description  LinkedList yapısının bulunduğu kaynak dosyası. Programda kullanılacak olan
+ *               fonksiyonların çoğu burada bulunmaktadır.
+ * @course       2. Öğretim A grubu
+ * @assignment   2024-2025 Güz, 2. Ödev
+ * @date         11.12.2024
+ * @author       Ahmet Özhan ÖZEN   ozhan.ozen@ogr.sakarya.edu.tr
+ */
 #include "LinkedList.hpp"
 #include <iostream>
 
@@ -103,7 +112,7 @@ void LinkedList::ekranaBas(int start, int end){
     adres(start,end);
     deger(start,end);
     adresNext(start,end);
-    
+
 }
 
 //destructor

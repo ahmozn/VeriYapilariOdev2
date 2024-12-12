@@ -1,3 +1,12 @@
+/**
+ * @file         BST.cpp
+ * @description  BinarySearchTree yapısının bulunduğu kaynak dosyası. Programda kullanılacak olan
+ *               bazı fonksiyonlar burada tanımlanmıştır.
+ * @course       2. Öğretim A grubu
+ * @assignment   2024-2025 Güz, 2. Ödev
+ * @date         11.12.2024
+ * @author       Ahmet Özhan ÖZEN   ozhan.ozen@ogr.sakarya.edu.tr
+ */
 #include "BST.hpp"
 #include <iostream>
 
