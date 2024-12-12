@@ -24,9 +24,11 @@ class LinkedList{
         LinkedList();   //constructor
 
         void agacEkle(const BST& bst, int satir); //listeye ağaç ekleme
+        int agacSayisi(); //toplam ağaç sayısı
 
         void agacyaz()const;
         void ekranaBas(int start, int end);
+        void dugumGosterici(int index);
 
         ~LinkedList();  //destructor
 };

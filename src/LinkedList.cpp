@@ -12,17 +12,21 @@
 
 using namespace std;
 
+//--------------------------PRIVATE--------------------------
+
+//liste yazdırırmada adresleri yazdırır
 void LinkedList::adres(int start, int end){
     LinkedListNode* temp=head;
-    if(start==0){
-        temp=temp;
-    }else{
+    
+    if(start<0) start=0;
+
+    if(start!=0){
         while(temp!=nullptr && temp->index!=start){
             temp=temp->next;
         }
     }
 
-    for(int i=start; i<end && i<=last->index;i++){
+    for(int i=start; i<end && i<=last->index+1;i++){
         cout<<".........\t";
     }
     cout<<endl;
@@ -33,17 +37,19 @@ void LinkedList::adres(int start, int end){
     }
     cout<<endl;
 
-    for(int i=start; i<end && i<=last->index;i++){
+    for(int i=start; i<end && i<=last->index+1;i++){
         cout<<".........\t";
     }
     cout<<endl;
 }
 
+//liste yazdırmada ağaç değerlerini yazdırır
 void LinkedList::deger(int start, int end){
     LinkedListNode* temp=head;
-    if(start==0){
-        temp=temp;
-    }else{
+    
+    if(start<0) start=0;
+
+    if(start!=0){
         while(temp!=nullptr && temp->index!=start){
             temp=temp->next;
         }
@@ -55,17 +61,19 @@ void LinkedList::deger(int start, int end){
     }
     cout<<endl;
 
-    for(int i=start; i<end && i<=last->index;i++){
+    for(int i=start; i<end && i<=last->index+1;i++){
         cout<<".........\t";
     }
     cout<<endl;
 }
 
+//liste yazdırmada sonraki düğüm adreslerini yazdırır
 void LinkedList::adresNext(int start, int end){
     LinkedListNode* temp=head;
-    if(start==0){
-        temp=temp;
-    }else{
+    
+    if(start<0) start=0;
+
+    if(start!=0){
         while(temp!=nullptr && temp->index!=start){
             temp=temp->next;
         }
@@ -77,14 +85,18 @@ void LinkedList::adresNext(int start, int end){
     }
     cout<<endl;
 
-    for(int i=start; i<end && i<=last->index;i++){
+    for(int i=start; i<end && i<=last->index+1;i++){
         cout<<".........\t";
     }
     cout<<endl;
 }
 
+//--------------------------PUBLIC--------------------------
+
+//constructor
 LinkedList::LinkedList():head(nullptr), last(nullptr){}
 
+//listeye ağaç ekler
 void LinkedList::agacEkle(const BST& bst, int satir){
     LinkedListNode* newNode= new LinkedListNode(satir);
     newNode->tree=bst;
@@ -97,6 +109,18 @@ void LinkedList::agacEkle(const BST& bst, int satir){
     }
 }
 
+//listedeki toplam ağaç sayısını döndürür
+int LinkedList::agacSayisi(){
+    int toplam=0;
+    LinkedListNode* temp=last;
+    if(temp==nullptr){
+        cout<<"ağaç yok - agacSayisi()"<<endl;
+        return -1;
+    }
+    return (temp->index)+1;
+}
+
+//atıl
 void LinkedList::agacyaz()const {
     LinkedListNode* temp = head;
     int treeCount = 1;
@@ -108,11 +132,24 @@ void LinkedList::agacyaz()const {
     }
 }
 
+//listeyi ekrana yazar, belirtilen index aralığını kullanır
 void LinkedList::ekranaBas(int start, int end){
     adres(start,end);
     deger(start,end);
     adresNext(start,end);
 
+}
+
+//listede bulunulan düğümü gösterir
+void LinkedList::dugumGosterici(int index){
+    for(int i=0;i<index;i++){
+        cout<<"                ";
+    }
+    cout<<"^^^^^^^^^"<<endl;
+    for(int i=0;i<index;i++){
+        cout<<"                ";
+    }
+    cout<<"|||||||||"<<endl;
 }
 
 //destructor

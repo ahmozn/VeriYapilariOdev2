@@ -18,6 +18,9 @@ using namespace std;
 
 int main(){
     LinkedList agaclar;
+    int startIndex=0;
+    int endIndex=10;
+    int index=0;
 
 
     ifstream fileAgaclar("agaclar.txt");
@@ -46,6 +49,9 @@ int main(){
             currentTree.ekle(ch);
         }
     }
+    if (currentTree.getRoot() != nullptr) {
+        agaclar.agacEkle(currentTree,satir);
+    }
 
     auto end=chrono::high_resolution_clock::now();
     auto duration=chrono::duration_cast<chrono::milliseconds>(end-start);
@@ -53,8 +59,56 @@ int main(){
     fileAgaclar.close();    //agaclar.txt kapatıldı
 
     agaclar.agacyaz();
-    agaclar.ekranaBas(0,10);
-    agaclar.ekranaBas(11,100);
 
-
+    char secim;
+    do
+    {
+        agaclar.ekranaBas(startIndex,endIndex);
+        agaclar.dugumGosterici(index);
+        cout<<"secim...: ";
+        cin>>secim;
+        cout<<endl;
+        cout<<index<<endl;
+        switch (secim)
+        {
+        case 'a':
+        case 'A':
+            cout<<"a veya A basildi"<<endl;
+            index--;
+            if(startIndex>10 && index==-1){
+                startIndex-=11;
+                endIndex=startIndex+10;
+                index=endIndex-1;
+            }
+            if(index<0) index=0;
+            break;
+        
+        case 'd':
+        case 'D':
+            cout<<"d veya D basildi"<<endl;
+            index++;
+            if(index>=endIndex){
+                startIndex=endIndex+1;
+                endIndex+=10;
+                index=0;
+            }
+            else if(startIndex>0 && index>agaclar.agacSayisi()-11)  index--;
+            else if(index>agaclar.agacSayisi()-1)                   index=agaclar.agacSayisi()-1;
+            break;
+        
+        case 'w':
+        case 'W':
+            cout<<"w veya W basildi"<<endl;
+            break;
+        
+        case 'q':
+        case 'Q':
+            cout<<"q veya Q basildi"<<endl;
+            cout<<"Cikis Secildi."<<endl;
+            break;
+        default:
+            break;
+        }
+    } while (secim!='q' && secim!='Q');
+    
 }
