@@ -12,6 +12,8 @@
 
 BST::BST():root(nullptr){}
 
+//--------------------------PRIVATE--------------------------
+
 //düğüm ekleme
 BSTNode* BST::dugumEkle(BSTNode* node, char chr){
     if (node == nullptr) {
@@ -25,9 +27,39 @@ BSTNode* BST::dugumEkle(BSTNode* node, char chr){
     return node;
 }
 
+void BST::ayna(BSTNode* root){
+    if (root == nullptr) {
+        return;
+    }
+
+    // Sol ve sağ alt ağaçları yer değiştir
+    BSTNode* temp = root->left;
+    root->left = root->right;
+    root->right = temp;
+
+    // Sol ve sağ alt ağaçları aynala
+    ayna(root->left);
+    ayna(root->right);
+}
+
+
+void BST::agacSil(BSTNode* node){
+    if(node==nullptr) return;
+
+    agacSil(node->left);
+    agacSil(node->right);
+
+    delete node;
+}
+//--------------------------PUBLIC--------------------------
+
 //public düğüm ekleme
 void BST::ekle(char chr){
     root=dugumEkle(root,chr);
+}
+
+void BST::aynala(){
+    ayna(root);
 }
 
 int BST::toplam(BSTNode* root, bool isLeft){
@@ -77,4 +109,6 @@ int BST::height(BSTNode* root){
     return (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
 }
 
-BST::~BST(){}
+BST::~BST(){
+    agacSil(root);
+}

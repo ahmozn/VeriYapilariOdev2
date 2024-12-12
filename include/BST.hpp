@@ -17,10 +17,13 @@ class BST{
     private: 
         BSTNode* root;
         BSTNode* dugumEkle(BSTNode* node, char chr);
+        void ayna(BSTNode* root);
+        void agacSil(BSTNode* node);
 
         void tyaz(BSTNode* node) const;
     public:
         void ekle(char chr);
+        void aynala();
         int toplam(BSTNode* root, bool isLeft=false);
         BSTNode* getRoot() const;
 

@@ -40,9 +40,9 @@ int main(){
     BST currentTree;
     while(fileAgaclar.get(ch)){
         if(ch=='\n'){
-            satir++;
             cout<<currentTree.height(currentTree.getRoot())<<endl;
             agaclar.agacEkle(currentTree,satir);
+            satir++;
             currentTree=BST();
         }
         else{
@@ -63,17 +63,15 @@ int main(){
     char secim;
     do
     {
+        system("CLS");
         agaclar.ekranaBas(startIndex,endIndex);
         agaclar.dugumGosterici(index);
         cout<<"secim...: ";
         cin>>secim;
-        cout<<endl;
-        cout<<index<<endl;
         switch (secim)
         {
         case 'a':
         case 'A':
-            cout<<"a veya A basildi"<<endl;
             index--;
             if(startIndex>10 && index==-1){
                 startIndex-=11;
@@ -85,30 +83,32 @@ int main(){
         
         case 'd':
         case 'D':
-            cout<<"d veya D basildi"<<endl;
             index++;
             if(index>=endIndex){
                 startIndex=endIndex+1;
                 endIndex+=10;
                 index=0;
             }
-            else if(startIndex>0 && index>agaclar.agacSayisi()-11)  index--;
+            else if(startIndex>0 && index>agaclar.agacSayisi()-12)  index--;
             else if(index>agaclar.agacSayisi()-1)                   index=agaclar.agacSayisi()-1;
             break;
-        
+        case 's':
+        case 'S':
+            agaclar.agacSil(startIndex+index);
+            index--;
+            break;
         case 'w':
         case 'W':
-            cout<<"w veya W basildi"<<endl;
+            agaclar.tersCevir(startIndex+index);
             break;
         
         case 'q':
         case 'Q':
-            cout<<"q veya Q basildi"<<endl;
             cout<<"Cikis Secildi."<<endl;
             break;
         default:
             break;
         }
     } while (secim!='q' && secim!='Q');
-    
+    agaclar.agacyaz();
 }
