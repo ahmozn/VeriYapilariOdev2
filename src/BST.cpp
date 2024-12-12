@@ -6,7 +6,7 @@ BST::BST():root(nullptr){}
 //düğüm ekleme
 BSTNode* BST::dugumEkle(BSTNode* node, char chr){
     if (node == nullptr) {
-        return new BSTNode(chr);  //düğüm yoksa yeni düğüm oluştur
+        return new BSTNode(chr);  //hiç düğüm yoksa yeni düğüm oluştur
     }
     if (chr < node->data) {
         node->left = dugumEkle(node->left, chr);   //sola ekle
@@ -19,6 +19,24 @@ BSTNode* BST::dugumEkle(BSTNode* node, char chr){
 //public düğüm ekleme
 void BST::ekle(char chr){
     root=dugumEkle(root,chr);
+}
+
+int BST::toplam(BSTNode* root, bool isLeft){
+    if(root==nullptr){
+        return 0;
+    }
+
+    int leftSum=toplam(root->left,true);
+    int rightSum=toplam(root->right,false);
+
+    int deger;
+    if(isLeft){
+        deger=root->data*2;
+    }else{
+        deger=root->data;
+    }
+
+    return leftSum+deger+rightSum;
 }
 
 BSTNode* BST::getRoot() const{

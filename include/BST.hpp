@@ -13,6 +13,7 @@ class BST{
         void tyaz(BSTNode* node) const;
     public:
         void ekle(char chr);
+        int toplam(BSTNode* root, bool isLeft=false);
         BSTNode* getRoot() const;
 
         void yazdir()const;
