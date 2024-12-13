@@ -19,11 +19,13 @@ class BST{
         BSTNode* dugumEkle(BSTNode* node, char chr);
         void ayna(BSTNode* root);
         void agacSil(BSTNode* node);
+        void agacCiz(BSTNode* root, int level=0, int space=0);
 
         void tyaz(BSTNode* node) const;
     public:
         void ekle(char chr);
         void aynala();
+        void ciz(int level=0, int space=0);
         int toplam(BSTNode* root, bool isLeft=false);
         BSTNode* getRoot() const;
 

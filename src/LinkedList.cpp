@@ -18,6 +18,8 @@ using namespace std;
 void LinkedList::adres(int start, int end){
     LinkedListNode* temp=head;
     
+    if(temp==nullptr) return;
+
     if(start<0) start=0;
 
     if(start!=0){
@@ -47,6 +49,8 @@ void LinkedList::adres(int start, int end){
 void LinkedList::deger(int start, int end){
     LinkedListNode* temp=head;
     
+    if(temp==nullptr) return;
+    
     if(start<0) start=0;
 
     if(start!=0){
@@ -71,6 +75,8 @@ void LinkedList::deger(int start, int end){
 void LinkedList::adresNext(int start, int end){
     LinkedListNode* temp=head;
     
+    if(temp==nullptr) return;
+
     if(start<0) start=0;
 
     if(start!=0){
@@ -133,9 +139,19 @@ void LinkedList::agacSil(int index){
     LinkedListNode* prev=nullptr;
     
     if(index==0){
+        int ix=0;
         head=head->next;
         delete temp;
         if(head==nullptr) last=nullptr;
+
+        LinkedListNode* tmp=head;
+        while(tmp!=nullptr){
+            prev=tmp;
+            tmp->index=ix;
+            tmp=tmp->next;
+            ix++;
+        }
+        last=prev;
         return;
     }
 
@@ -149,16 +165,18 @@ void LinkedList::agacSil(int index){
     prev->next=temp->next;
     if(temp->next==nullptr) last=prev;
 
-    temp->tree.~BST();
     delete temp;
 
     LinkedListNode* curr=prev->next;
+    if(curr==nullptr) return;
     int ix=prev->index+1;
+    cout<<prev->index;
     while(curr!=nullptr){
         curr->index=ix;
         curr=curr->next;
         ix++;
     }
+    cout<<"son agac adresi: "<<last<<endl;
 }
 
 //listedeki toplam ağaç sayısını döndürür
@@ -166,15 +184,26 @@ int LinkedList::agacSayisi(){
     int toplam=0;
     LinkedListNode* temp=last;
     if(temp==nullptr){
-        cout<<"ağaç yok - agacSayisi()"<<endl;
+        cout<<"agac yok - agacSayisi()"<<endl;
         return -1;
     }
     return (temp->index)+1;
 }
 
+//listedeki ağaçları çizer
+void LinkedList::agacCiz(int index){
+    LinkedListNode* temp=head;
+    if(head==nullptr||index<0) return;
+
+    for(int i=0; temp!=nullptr && i<index; i++){
+        temp=temp->next;
+    }
+    temp->tree.ciz();
+}
+
 void LinkedList::tersCevir(int index){
     LinkedListNode* temp= head;
-    if(temp==nullptr){
+    if(temp==nullptr||index<0){
         return;
     }
     while (temp!=nullptr && temp->index!=index)
@@ -197,15 +226,18 @@ void LinkedList::agacyaz()const {
 }
 
 //listeyi ekrana yazar, belirtilen index aralığını kullanır
-void LinkedList::ekranaBas(int start, int end){
+void LinkedList::ekranaBas(int start=0, int end=10){
     adres(start,end);
     deger(start,end);
     adresNext(start,end);
-
+    //ağaç yazdırma fonk eklenecek
 }
 
 //listede bulunulan düğümü gösterir
-void LinkedList::dugumGosterici(int index){
+void LinkedList::dugumGosterici(int index=0){
+    if(agacSayisi()<=0){
+        return;
+    }
     for(int i=0;i<index;i++){
         cout<<"                ";
     }

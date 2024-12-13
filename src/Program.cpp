@@ -66,6 +66,7 @@ int main(){
         system("CLS");
         agaclar.ekranaBas(startIndex,endIndex);
         agaclar.dugumGosterici(index);
+        agaclar.agacCiz(index);
         cout<<"secim...: ";
         cin>>secim;
         switch (secim)
@@ -73,8 +74,8 @@ int main(){
         case 'a':
         case 'A':
             index--;
-            if(startIndex>10 && index==-1){
-                startIndex-=11;
+            if(startIndex>=10 && index==-1){
+                startIndex-=10;
                 endIndex=startIndex+10;
                 index=endIndex-1;
             }
@@ -85,17 +86,23 @@ int main(){
         case 'D':
             index++;
             if(index>=endIndex){
-                startIndex=endIndex+1;
+                startIndex=endIndex;
                 endIndex+=10;
                 index=0;
             }
-            else if(startIndex>0 && index>agaclar.agacSayisi()-12)  index--;
+            else if(startIndex>0 && index>agaclar.agacSayisi()-11)  index--;
             else if(index>agaclar.agacSayisi()-1)                   index=agaclar.agacSayisi()-1;
             break;
         case 's':
         case 'S':
             agaclar.agacSil(startIndex+index);
             index--;
+            if(startIndex>=10 && index==-1){
+                startIndex-=10;
+                endIndex=startIndex+10;
+                index=endIndex-1;
+            }
+            if(index<0) index=0;
             break;
         case 'w':
         case 'W':
@@ -110,5 +117,6 @@ int main(){
             break;
         }
     } while (secim!='q' && secim!='Q');
-    agaclar.agacyaz();
+
+    //desturctor cagrilari
 }

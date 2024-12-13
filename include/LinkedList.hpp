@@ -28,6 +28,7 @@ class LinkedList{
         void agacSil(int index);
         int agacSayisi(); //toplam ağaç sayısı
 
+        void agacCiz(int index);
         void tersCevir(int index);
         void agacyaz()const;
         void ekranaBas(int start, int end);

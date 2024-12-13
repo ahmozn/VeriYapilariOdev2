@@ -50,6 +50,18 @@ void BST::agacSil(BSTNode* node){
     agacSil(node->right);
 
     delete node;
+    node=nullptr;
+}
+
+void BST::agacCiz(BSTNode* root, int level, int space){
+    if(root==nullptr) return;
+
+    agacCiz(root->right, level+1, space+5);
+
+    if(level>0) std::cout<<space<<' ';
+    std::cout<<root->data<<std::endl;
+
+    agacCiz(root->left, level+1, space+5);
 }
 //--------------------------PUBLIC--------------------------
 
@@ -60,6 +72,10 @@ void BST::ekle(char chr){
 
 void BST::aynala(){
     ayna(root);
+}
+
+void BST::ciz(int level, int space){
+    agacCiz(root,level,space);
 }
 
 int BST::toplam(BSTNode* root, bool isLeft){
