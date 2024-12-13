@@ -55,13 +55,23 @@ void BST::agacSil(BSTNode* node){
 
 void BST::agacCiz(BSTNode* root, int level, int space){
     if(root==nullptr) return;
+    // if(root->left!=nullptr && root->right!=nullptr){
+    //     std::cout<<std::endl;
+    //     for(int i=0;i<level*3;i++) std::cout<<".";
+    //     std::cout<<root->data<<std::endl;
+    //     agacCiz(root->left,level-1);
+    //     agacCiz(root->right,level-1);
+    // }
 
-    agacCiz(root->right, level+1, space+5);
-
-    if(level>0) std::cout<<space<<' ';
+    for(int i=0;i<level*3;i++) std::cout<<".";
     std::cout<<root->data<<std::endl;
 
-    agacCiz(root->left, level+1, space+5);
+    agacCiz(root->right, level-1, space+5);
+
+    // if(level>0) for(int i=0;i<space;i++) std::cout<<' ';
+    // std::cout<<root->data<<std::endl;
+
+    agacCiz(root->left, level-1, space+5);
 }
 //--------------------------PUBLIC--------------------------
 
@@ -75,7 +85,7 @@ void BST::aynala(){
 }
 
 void BST::ciz(int level, int space){
-    agacCiz(root,level,space);
+    agacCiz(root,height(root),space);
 }
 
 int BST::toplam(BSTNode* root, bool isLeft){

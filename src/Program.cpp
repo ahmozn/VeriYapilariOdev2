@@ -66,7 +66,7 @@ int main(){
         system("CLS");
         agaclar.ekranaBas(startIndex,endIndex);
         agaclar.dugumGosterici(index);
-        agaclar.agacCiz(index);
+        agaclar.agacCiz(startIndex+index);
         cout<<"secim...: ";
         cin>>secim;
         switch (secim)
@@ -118,5 +118,5 @@ int main(){
         }
     } while (secim!='q' && secim!='Q');
 
-    //desturctor cagrilari
+    return 0;
 }
