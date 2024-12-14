@@ -22,6 +22,7 @@ void LinkedList::adres(int start, int end){
 
     if(start<0) start=0;
 
+    //başlangıc indexi 0dan farklıysa(ör: 10) ilgili düğüme gider
     if(start!=0){
         while(temp!=nullptr && temp->index!=start){
             temp=temp->next;
@@ -33,6 +34,7 @@ void LinkedList::adres(int start, int end){
     }
     cout<<endl;
 
+    //adresi 4 basamaklı gösterir
     while(temp!=nullptr && temp->index>=start && temp->index<end){
         cout<<". "<<((int)temp)%10000<<"\t.\t";
         temp=temp->next;
@@ -53,14 +55,16 @@ void LinkedList::deger(int start, int end){
     
     if(start<0) start=0;
 
+    //başlangıc indexi 0dan farklıysa(ör: 10) ilgili düğüme gider
     if(start!=0){
         while(temp!=nullptr && temp->index!=start){
             temp=temp->next;
         }
     }
 
+    //BST sınıfındaki fonksiyon ile ağacın değerini gösterir, 4 basamak göstermesi için %10000 işlemi yapıldı
     while(temp!=nullptr && temp->index>=start && temp->index<end){
-        cout<<". "<<temp->tree.toplam(temp->tree.getRoot())<<"\t.\t";
+        cout<<". "<<temp->tree.toplam(temp->tree.getRoot())%10000<<"\t.\t";
         temp=temp->next;
     }
     cout<<endl;
@@ -79,12 +83,14 @@ void LinkedList::adresNext(int start, int end){
 
     if(start<0) start=0;
 
+    //başlangıc indexi 0dan farklıysa(ör: 10) ilgili düğüme gider
     if(start!=0){
         while(temp!=nullptr && temp->index!=start){
             temp=temp->next;
         }
     }
 
+    //adresi 4 basamaklı gösterir
     while(temp!=nullptr && temp->index>=start && temp->index<end){
         cout<<". "<<((int)temp->next)%10000<<"\t.\t";
         temp=temp->next;
@@ -98,9 +104,6 @@ void LinkedList::adresNext(int start, int end){
 }
 
 //--------------------------PUBLIC--------------------------
-
-//constructor
-LinkedList::LinkedList():head(nullptr), last(nullptr){}
 
 //atıl
 LinkedListNode* LinkedList::agacbul(int index){
@@ -119,10 +122,14 @@ LinkedListNode* LinkedList::agacbul(int index){
 void LinkedList::agacEkle(const BST& bst, int satir){
     LinkedListNode* newNode= new LinkedListNode(satir);
     newNode->tree=bst;
+    
+    //liste boşsa
     if(head==nullptr){
         head=newNode;
         last=newNode;
-    }else{
+    }
+    //eleman varsa sona ekle
+    else{ 
         last->next=newNode;
         last=newNode;
     }
@@ -138,12 +145,14 @@ void LinkedList::agacSil(int index){
     LinkedListNode* temp=head;
     LinkedListNode* prev=nullptr;
     
+    //listenin ilk elemanıysa
     if(index==0){
         int ix=0;
         head=head->next;
         delete temp;
         if(head==nullptr) last=nullptr;
 
+        //ilk eleman silindikten sonra diğerlerinin indexleri değiştirilir
         LinkedListNode* tmp=head;
         while(tmp!=nullptr){
             prev=tmp;
@@ -151,10 +160,11 @@ void LinkedList::agacSil(int index){
             tmp=tmp->next;
             ix++;
         }
-        last=prev;
+        last=prev; //tmp'nin son değeri nullptr olduğundan last değişkenine prev değişkeni atanır
         return;
     }
 
+    //index sıfırdan farklıysa ilgili düğüme gidilir
     for(int i=0; temp!=nullptr && i<index; i++){
         prev=temp;
         temp=temp->next;
@@ -162,11 +172,12 @@ void LinkedList::agacSil(int index){
 
     if(temp==nullptr) return;
 
-    prev->next=temp->next;
-    if(temp->next==nullptr) last=prev;
+    prev->next=temp->next; //ilgili düğümden önceki düğümün sonraki düğüme bağlantısı yapılır
+    if(temp->next==nullptr) last=prev; //eğer son düğüm silinecekse son düğümü tutan pointer güncellenir
 
     delete temp;
 
+    //düğüm silindikten sonra, silinen düğümden sonraki düğümlerin indexi değiştirilir
     LinkedListNode* curr=prev->next;
     if(curr==nullptr) return;
     int ix=prev->index+1;
@@ -176,7 +187,6 @@ void LinkedList::agacSil(int index){
         curr=curr->next;
         ix++;
     }
-    cout<<"son agac adresi: "<<last<<endl;
 }
 
 //listedeki toplam ağaç sayısını döndürür
@@ -201,16 +211,19 @@ void LinkedList::agacCiz(int index){
     temp->tree.ciz();
 }
 
+//ağacı ters çevirme fonksiyonu
 void LinkedList::tersCevir(int index){
     LinkedListNode* temp= head;
+    //liste boşsa veya index sıfırdan küçükse işleme alınmaz
     if(temp==nullptr||index<0){
         return;
     }
+    //ilgili indexe sahip düğüme gidilir
     while (temp!=nullptr && temp->index!=index)
     {
         temp=temp->next;
     }
-    temp->tree.aynala();
+    temp->tree.aynala(); //BST sınıfının fonksiyonu çağrılır
 }
 
 //atıl
@@ -248,5 +261,7 @@ void LinkedList::dugumGosterici(int index=0){
     cout<<"|||||||||"<<endl;
 }
 
+//constructor
+LinkedList::LinkedList():head(nullptr), last(nullptr){}
 //destructor
 LinkedList::~LinkedList(){}

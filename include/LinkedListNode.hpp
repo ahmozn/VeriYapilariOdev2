@@ -13,11 +13,11 @@
 
 class LinkedListNode{
     public:
-        int index;
-        BST tree;
-        LinkedListNode* next;
-        LinkedListNode(int index);
-        ~LinkedListNode();
-};
+        int index;                  //düğüm indexi
+        BST tree;                   //düğümde bulunacak ağaç
+        LinkedListNode* next;       //sonraki düğüme pointer
 
+        LinkedListNode(int index);  //constructor
+        ~LinkedListNode();          //destructor
+};
 #endif

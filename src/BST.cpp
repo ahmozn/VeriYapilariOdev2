@@ -10,39 +10,38 @@
 #include "BST.hpp"
 #include <iostream>
 
-BST::BST():root(nullptr){}
-
 //--------------------------PRIVATE--------------------------
 
-//düğüm ekleme
+//düğüm eklemek için rekürsif fonksiyon
 BSTNode* BST::dugumEkle(BSTNode* node, char chr){
     if (node == nullptr) {
         return new BSTNode(chr);  //hiç düğüm yoksa yeni düğüm oluştur
     }
     if (chr < node->data) {
-        node->left = dugumEkle(node->left, chr);   //sola ekle
+        node->left = dugumEkle(node->left, chr);   //küçükse sol düğüm için çağır
     } else if (chr > node->data) {
-        node->right = dugumEkle(node->right, chr); //sağa ekle
+        node->right = dugumEkle(node->right, chr); //büyükse sağ düğüm için çağır
     }
     return node;
 }
 
+//aynalama işlemi için rekürsif fonksiyon
 void BST::ayna(BSTNode* root){
     if (root == nullptr) {
         return;
     }
 
-    // Sol ve sağ alt ağaçları yer değiştir
+    //sol ve sağ alt ağaçları yer değiştir
     BSTNode* temp = root->left;
     root->left = root->right;
     root->right = temp;
 
-    // Sol ve sağ alt ağaçları aynala
+    //sol ve sağ alt ağaçları aynala
     ayna(root->left);
     ayna(root->right);
 }
 
-
+//destructor için rekürsif fonksiyon
 void BST::agacSil(BSTNode* node){
     if(node==nullptr) return;
 
@@ -53,6 +52,7 @@ void BST::agacSil(BSTNode* node){
     node=nullptr;
 }
 
+//güncellenecek
 void BST::agacCiz(BSTNode* root, int level, int space){
     if(root==nullptr) return;
     // if(root->left!=nullptr && root->right!=nullptr){
@@ -80,14 +80,17 @@ void BST::ekle(char chr){
     root=dugumEkle(root,chr);
 }
 
+//public aynalama
 void BST::aynala(){
     ayna(root);
 }
 
+//güncellenecek
 void BST::ciz(int level, int space){
     agacCiz(root,height(root),space);
 }
 
+//ağacın değerini döndüren rekürsif fonksiyon
 int BST::toplam(BSTNode* root, bool isLeft){
     if(root==nullptr){
         return 0;
@@ -97,19 +100,24 @@ int BST::toplam(BSTNode* root, bool isLeft){
     int rightSum=toplam(root->right,false);
 
     int deger;
+    //sol düğümse 2 ile çarparak al
     if(isLeft){
         deger=root->data*2;
-    }else{
+    }
+    //sağ düğümse olduğu gibi al
+    else{
         deger=root->data;
     }
 
-    return leftSum+deger+rightSum;
+    return leftSum+deger+rightSum; //yaprağın değerini toplam değere ekle
 }
 
+//ağacın kök düğümünü döndürür
 BSTNode* BST::getRoot() const{
     return root;
 }
 
+//atıl
 void BST::tyaz(BSTNode* node) const{
     if (node != nullptr) {
         tyaz(node->left);
@@ -117,24 +125,29 @@ void BST::tyaz(BSTNode* node) const{
         tyaz(node->right);
     }
 }
-
+//atıl
 void BST::yazdir() const{
     tyaz(root);
     std::cout<<std::endl;
 }
 
+//ağacın yüksekliğini döndürür
 int BST::height(BSTNode* root){
+    //ağaç boşsa
     if (root == nullptr) {
-        return 0; // Ağaç boşsa yüksekliği 0'dır
+        return 0;
     }
-    // Sol ve sağ alt ağaçların yüksekliklerini hesapla
+    //sol ve sağ alt ağaçların yüksekliklerini hesapla
     int leftHeight = height(root->left);
     int rightHeight = height(root->right);
 
-    // Daha büyük olanı al ve kök için 1 ekle
+    //hangisi büyükse onu alıp 1 ekle
     return (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
 }
 
+//constructor
+BST::BST():root(nullptr){}
+//destructor
 BST::~BST(){
     agacSil(root);
 }

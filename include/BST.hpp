@@ -15,22 +15,23 @@ class BSTNode;
 
 class BST{
     private: 
-        BSTNode* root;
-        BSTNode* dugumEkle(BSTNode* node, char chr);
-        void ayna(BSTNode* root);
-        void agacSil(BSTNode* node);
-        void agacCiz(BSTNode* root, int level=0, int space=0);
+        BSTNode* root;    //kök düğüm                                      
+        BSTNode* dugumEkle(BSTNode* node, char chr);    //düğüm eklemek için private fonksiyon
+        void ayna(BSTNode* root);                       //aynalamak için private fonksiyon
+        void agacSil(BSTNode* node);                    //silmek için private fonksiyon
+        void agacCiz(BSTNode* root, int level=0, int space=0);  //güncellenecek
 
-        void tyaz(BSTNode* node) const;
+        void tyaz(BSTNode* node) const; //atıl
     public:
-        void ekle(char chr);
-        void aynala();
-        void ciz(int level=0, int space=0);
-        int toplam(BSTNode* root, bool isLeft=false);
-        BSTNode* getRoot() const;
+        void ekle(char chr);                            //düğüm ekle public
+        void aynala();                                  //aynala public
+        void ciz(int level=0, int space=0);             //güncellenecek
+        int toplam(BSTNode* root, bool isLeft=false);   //ağaç değerini döndürür
+        BSTNode* getRoot() const;                       //ağaç kök düğümünü döndürür
 
-        void yazdir()const;
-        int height(BSTNode* root);
+        void yazdir()const;//atıl
+        int height(BSTNode* root);                      //ağacın yüksekliğini döndürür
+        
         BST();   //constructor
         ~BST();  //destructor
 };
