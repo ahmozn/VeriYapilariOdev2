@@ -9,7 +9,10 @@
  */
 #include "BST.hpp"
 #include <iostream>
+#include <iomanip>
+#include <cmath>
 
+using namespace std;
 //--------------------------PRIVATE--------------------------
 
 //düğüm eklemek için rekürsif fonksiyon
@@ -145,9 +148,60 @@ int BST::height(BSTNode* root){
     return (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
 }
 
+void BST::treeprint(){
+    int i=0;
+    while(i<=height(getRoot())){
+        int val=printlv(i);
+        i++;
+        //cout<<setw(1+val)<<"";
+        for(int i=0;i<val/2;i++) cout<<".";
+        cout<<endl;
+    }
+}
+
+int BST::printlv(int n){
+    BSTNode* temp=getRoot();
+    int val= pow(2,height(root)- n);
+    cout<<setw(val)<<"";
+    displv(temp,n,val);
+    cout<<endl;
+    cout<<setw(1+val/2)<<"";
+    for(int i=0;i<val/2+1;i++) cout<<".";
+    return val;
+}
+
+void BST::displv(BSTNode* p, int lv, int d){
+    int disp = 2 * d;
+    if (lv == 0){
+        if (p == NULL){
+
+            cout << "   ";
+            cout << setw(disp -3) << "";
+            return;
+        }
+        else{
+            int result = ((p->data <= 1) ? 1 : log10(p->data) + 1);
+            cout << " " << p->data << " ";
+            cout << setw(disp - result-1) << "";
+        }
+    }
+    else
+    {
+        if (p == NULL&& lv >= 1){
+            displv(NULL, lv - 1, d);
+            displv(NULL, lv - 1, d);
+        }
+        else{
+            displv(p->left, lv - 1, d);
+            displv(p->right, lv - 1, d);
+        }
+    }
+}
+
+
 //constructor
 BST::BST():root(nullptr){}
 //destructor
 BST::~BST(){
-    agacSil(root);
+    //agacSil(root);
 }

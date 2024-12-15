@@ -32,6 +32,12 @@ class BST{
         void yazdir()const;//atıl
         int height(BSTNode* root);                      //ağacın yüksekliğini döndürür
         
+        void treeprint();
+        int printlv(int n);
+        void displv(BSTNode* p, int lv, int d);
+
+
+
         BST();   //constructor
         ~BST();  //destructor
 };
