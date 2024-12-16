@@ -194,7 +194,6 @@ int LinkedList::agacSayisi(){
     int toplam=0;
     LinkedListNode* temp=last;
     if(temp==nullptr){
-        cout<<"agac yok - agacSayisi()"<<endl;
         return -1;
     }
     return (temp->index)+1;
