@@ -150,39 +150,76 @@ int BST::height(BSTNode* root){
 
 void BST::treeprint(){
     int i=0;
-    while(i<=height(getRoot())){
+    //Queue* q=lot(root);
+    //QueueNode* qtmp=q->getFirst();
+    //BSTNode* temp=q->frontNodeValue();
+    BSTNode* temp=getRoot();
+    while(i<height(getRoot())){
         int val=printlv(i);
+        if(i==0){
+            if(temp->left!=nullptr&&temp->right!=nullptr){
+                cout<<setw(1+val/2)<<"";
+                for(int i=0;i<=val;i++) cout<<"x";
+            }
+            else if(temp->left!=nullptr){
+                cout<<setw(1+val/2)<<"";
+                for(int i=0;i<=val/2;i++) cout<<"x";
+                //temp=temp->left;
+            }
+            else if(temp->right!=nullptr){
+                cout<<setw(1+val)<<"";
+                for(int i=0;i<=val/2;i++) cout<<"x";
+                //temp=temp->right;
+            }
+        }
+        else if(i>0){
+            if(i==1){
+                cout<<setw(1+val/2)<<"";
+                for(int y=0;y<2;y++){
+                    for(int i=0;i<=val;i++) cout<<".";
+                    cout<<setw(val-1)<<"";
+                }
+            }else{
+                cout<<setw(1+val/2)<<"";
+                for(int y=0;y<pow(2,i);y++){
+                    for(int i=0;i<=val;i++) cout<<".";
+                    cout<<setw(val-1)<<"";
+                }
+            }
+        }
+        // qtmp=qtmp->next;
+        // if(qtmp!=nullptr)temp=qtmp->treeNode;
         i++;
-        //cout<<setw(1+val)<<"";
-        for(int i=0;i<val/2;i++) cout<<".";
         cout<<endl;
     }
 }
 
 int BST::printlv(int n){
     BSTNode* temp=getRoot();
-    int val= pow(2,height(root)- n);
+    int val= pow(2,height(root)- n+2);
     cout<<setw(val)<<"";
     displv(temp,n,val);
     cout<<endl;
-    cout<<setw(1+val/2)<<"";
-    for(int i=0;i<val/2+1;i++) cout<<".";
+    //cout<<setw(1+val/2)<<"";
+    //for(int i=0;i<val/2+1;i++) cout<<".";
     return val;
 }
 
+//TEK IHTIYAC COCUK VARSA NOKTA YAZDIR YOKSA YAZDIRMA ŞEKLİNDE 
+//bir de sağ taraf için çağrılması var tabi
 void BST::displv(BSTNode* p, int lv, int d){
     int disp = 2 * d;
     if (lv == 0){
         if (p == NULL){
 
-            cout << "   ";
+            cout << " x ";
             cout << setw(disp -3) << "";
             return;
         }
         else{
-            int result = ((p->data <= 1) ? 1 : log10(p->data) + 1);
+            //int result = ((p->data <= 1) ? 1 : log10(p->data) + 1);
             cout << " " << p->data << " ";
-            cout << setw(disp - result-1) << "";
+            cout << setw(disp -3) << "";
         }
     }
     else
@@ -198,6 +235,25 @@ void BST::displv(BSTNode* p, int lv, int d){
     }
 }
 
+Queue* BST::lot(BSTNode* root){
+    if (root == nullptr) return nullptr;
+    
+    Queue* q = new Queue();
+    q->enqueue(root);
+    
+    
+    while (!q->empty()) {
+        BSTNode* curr=q->frontNodeValue();
+        q->dequeue();
+
+        cout<<curr->data<<" ";
+
+        if(curr->left) q->enqueue(curr->left);
+        if(curr->right) q->enqueue(curr->right);
+    }
+    
+    return q;
+}
 
 //constructor
 BST::BST():root(nullptr){}

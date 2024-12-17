@@ -10,6 +10,7 @@
 #define BST_HPP
 
 #include "BSTNode.hpp"
+#include "Queue.hpp"
 
 class BSTNode;
 
@@ -36,6 +37,7 @@ class BST{
         int printlv(int n);
         void displv(BSTNode* p, int lv, int d);
 
+        Queue* lot(BSTNode* root);
 
 
         BST();   //constructor
