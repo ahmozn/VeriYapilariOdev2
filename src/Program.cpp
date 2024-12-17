@@ -77,7 +77,7 @@ int main(){
             if(startIndex>=10 && index==-1){
                 startIndex-=10;
                 endIndex=startIndex+10;
-                index=endIndex-1;
+                index=endIndex-startIndex-1;
             }
             if(index<0) index=0;
             break;
@@ -85,12 +85,12 @@ int main(){
         case 'd':
         case 'D':
             index++;
-            if(index>=endIndex){
+            if(startIndex+index>=endIndex){
                 startIndex=endIndex;
                 endIndex+=10;
                 index=0;
             }
-            else if(startIndex>0 && index>agaclar.agacSayisi()-11)  index--;
+            else if(startIndex>0 && index>agaclar.agacSayisi()-startIndex-1)  index--;
             else if(index>agaclar.agacSayisi()-1)                   index=agaclar.agacSayisi()-1;
             break;
         case 's':
