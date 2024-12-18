@@ -11,20 +11,23 @@
 
 #include "BSTNode.hpp"
 #include "Queue.hpp"
+#include "OuterList.hpp"
 
 class BSTNode;
 
 class BST{
     private: 
-        BSTNode* root;    //kök düğüm                                      
-        BSTNode* dugumEkle(BSTNode* node, char chr);    //düğüm eklemek için private fonksiyon
+        BSTNode* root;    //kök düğüm      
+        OuterList* levels; 
+
+        BSTNode* dugumEkle(BSTNode* node, char chr, int level);    //düğüm eklemek için private fonksiyon
         void ayna(BSTNode* root);                       //aynalamak için private fonksiyon
         void agacSil(BSTNode* node);                    //silmek için private fonksiyon
         void agacCiz(BSTNode* root, int level=0, int space=0);  //güncellenecek
 
         void tyaz(BSTNode* node) const; //atıl
     public:
-        void ekle(char chr);                            //düğüm ekle public
+        BSTNode* ekle(char chr);                            //düğüm ekle public
         void aynala();                                  //aynala public
         void ciz(int level=0, int space=0);             //güncellenecek
         int toplam(BSTNode* root, bool isLeft=false);   //ağaç değerini döndürür
@@ -37,7 +40,10 @@ class BST{
         int printlv(int n);
         void displv(BSTNode* p, int lv, int d);
 
+        void yaz();
+
         Queue* lot(BSTNode* root);
+        OuterList* getLevelsList();
 
 
         BST();   //constructor

@@ -16,14 +16,16 @@ using namespace std;
 //--------------------------PRIVATE--------------------------
 
 //düğüm eklemek için rekürsif fonksiyon
-BSTNode* BST::dugumEkle(BSTNode* node, char chr){
+BSTNode* BST::dugumEkle(BSTNode* node, char chr, int level){
     if (node == nullptr) {
-        return new BSTNode(chr);  //hiç düğüm yoksa yeni düğüm oluştur
+        BSTNode* newNode=new BSTNode(chr);
+        levels->addLeaf(level,newNode);
+        return newNode;  //hiç düğüm yoksa yeni düğüm oluştur
     }
     if (chr < node->data) {
-        node->left = dugumEkle(node->left, chr);   //küçükse sol düğüm için çağır
+        node->left = dugumEkle(node->left, chr, level+1);   //küçükse sol düğüm için çağır
     } else if (chr > node->data) {
-        node->right = dugumEkle(node->right, chr); //büyükse sağ düğüm için çağır
+        node->right = dugumEkle(node->right, chr, level+1); //büyükse sağ düğüm için çağır
     }
     return node;
 }
@@ -79,8 +81,9 @@ void BST::agacCiz(BSTNode* root, int level, int space){
 //--------------------------PUBLIC--------------------------
 
 //public düğüm ekleme
-void BST::ekle(char chr){
-    root=dugumEkle(root,chr);
+BSTNode* BST::ekle(char chr){
+    root=dugumEkle(root,chr,0);
+    return root;
 }
 
 //public aynalama
@@ -194,6 +197,86 @@ void BST::treeprint(){
     }
 }
 
+void BST::yaz(){
+    BSTNode* root=getRoot();
+    OuterList* levels=getLevelsList();
+    OuterNode* levelNode= levels->head;
+    OuterNode* prevLevel=levelNode;
+
+    int val=pow(2,height(root)+2);
+    while(levelNode){
+        InnerNode* head=levelNode->innerListHead;
+        InnerNode* currInner=head;
+        InnerNode* prevInner=currInner;
+        cout<<setw(val)<<"";
+        prevInner=prevLevel->innerListHead;
+        while(prevInner){
+            while(currInner){
+            //cout<<setw(1+val*2-3)<<"";
+                if(prevInner->node->left!=nullptr && prevInner->node->right!=nullptr){
+                    cout<<currInner->node->data;
+                    cout<<setw(1+ val*2 -3)<<"";
+                }
+                else if(prevInner->node->left!=nullptr && prevInner->node->right==nullptr){
+                    cout<<currInner->node->data;
+                    cout<<setw(1+ val*2 -3)<<"";
+                }
+                else if(prevInner->node->left==nullptr && prevInner->node->right!=nullptr){
+                    if(levelNode->level!=0) cout<<setw(1+val*2 -3)<<"";
+                    cout<<currInner->node->data;
+                    cout<<setw(1+ val*4 -3)<<"";
+                }
+                //prevInner=currInner;
+                currInner=currInner->next;
+            }
+            prevInner=prevInner->next;
+        }
+        
+        cout<<endl;
+        currInner=head;
+        prevInner=prevLevel->innerListHead;
+        
+        while(prevInner){
+            while(currInner){
+                if(currInner->node->left!=nullptr && currInner->node->right!=nullptr){
+                    cout<<setw(val/2)<<"";
+                    for(int i=0;i<val;i++) cout<<"x";
+                    cout<<setw(val/2)<<"";
+                }
+                else if(currInner->node->left!=nullptr && currInner->node->right==nullptr){
+                    cout<<setw(val/2)<<"";
+                    for(int i=0;i<val/2;i++) cout<<".";
+                    cout<<setw(val-1)<<"";
+                }
+                else if(currInner->node->left==nullptr && currInner->node->right!=nullptr){
+                    cout<<setw(val)<<"";
+                    for(int i=0;i<val/2;i++) cout<<".";
+                    cout<<setw(val)<<"";
+                }
+                //prevInner=currInner;
+                currInner=currInner->next;
+            }
+            prevInner=prevInner->next;
+        }
+
+        cout<<endl;
+        val=val/2;
+        // cout<<levelNode->level<<endl;
+        // cout<<prevLevel->level<<endl;
+        prevLevel=levelNode;
+        levelNode=levelNode->next;
+    }
+    // //son satır yazdırılıyoer
+    // cout<<setw(val*2)<<"";
+    // InnerNode* crr=prevLevel->innerListHead;
+    // while(crr){
+    //         cout<<crr->node->data;
+    //         cout<<setw(1+val*4-3)<<"";
+    //         crr=crr->next;
+    // }
+    cout<<endl;
+}
+
 int BST::printlv(int n){
     BSTNode* temp=getRoot();
     int val= pow(2,height(root)- n+2);
@@ -235,28 +318,71 @@ void BST::displv(BSTNode* p, int lv, int d){
     }
 }
 
+//meh
 Queue* BST::lot(BSTNode* root){
     if (root == nullptr) return nullptr;
     
     Queue* q = new Queue();
     q->enqueue(root);
     
-    
-    while (!q->empty()) {
-        BSTNode* curr=q->frontNodeValue();
-        q->dequeue();
+    int h=0;
+    int val=pow(2,height(root)+2);
+    while (!q->empty() && h<height(root)) {
+        int levelSize = q->size();  // Mevcut seviyedeki düğüm sayısı
+        cout << endl;
 
-        cout<<curr->data<<" ";
+        cout<<setw(val)<<"";
+        for (int i = 0; i < levelSize; ++i) {
+            BSTNode* curr = q->frontNodeValue();
+            q->dequeue();   
 
-        if(curr->left) q->enqueue(curr->left);
-        if(curr->right) q->enqueue(curr->right);
+
+            // Çocukları kuyruğa ekleme
+            if (curr) {
+                cout << " " << curr->data << " " << setw(1+ 2 * val - 3);
+
+                q->enqueue(curr->left);
+                q->enqueue(curr->right);
+            } else {
+                cout << " x " << setw(1+ 2*val-3) << "";
+            }
+        }
+
+        cout << endl; // Seviyeyi bitirdikten sonra yeni satıra geç
+
+        // 2. Adım: Çocuk bağlantıları için noktaları koy
+        for (int i = 0; i < levelSize; ++i) {
+            BSTNode* curr = q->frontNodeValue();
+            if(curr){
+                if (curr->left!=nullptr && curr->right!=nullptr){
+                    cout<<setw(1+val/2)<<"";
+                    for(int i=0;i<=val;i++) cout<<"b";
+                }
+                if(curr->left!=nullptr && curr->right==nullptr){
+                    cout<<setw(1+val/2)<<"";
+                    for(int i=0;i<=val/2;i++) cout<<"a";
+                }
+                if(curr->left==nullptr && curr->right!=nullptr){
+                    cout<<setw(1+val)<<"";
+                    for(int i=0;i<=val/2;i++) cout<<"o";
+                }
+            }
+        }
+
+        cout << endl;
+        val = val / 2;
+        h++;
     }
     
     return q;
 }
 
+OuterList* BST::getLevelsList(){
+    return levels;
+}
+
 //constructor
-BST::BST():root(nullptr){}
+BST::BST():root(nullptr), levels(new OuterList()){}
 //destructor
 BST::~BST(){
     //agacSil(root);

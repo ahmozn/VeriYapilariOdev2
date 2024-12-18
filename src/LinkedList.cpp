@@ -207,7 +207,7 @@ void LinkedList::agacCiz(int index){
     for(int i=0; temp!=nullptr && i<index; i++){
         temp=temp->next;
     }
-    temp->tree.treeprint();
+    temp->tree.yaz();
 }
 
 //ağacı ters çevirme fonksiyonu
