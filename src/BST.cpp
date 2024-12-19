@@ -203,66 +203,95 @@ void BST::yaz(){
     OuterNode* levelNode= levels->head;
     OuterNode* prevLevel=levelNode;
 
-    int val=pow(2,height(root)+2);
+    cout<<endl;
+    levels->print();
+    cout<<endl;
+
+    int val=pow(2,height(root)-1);
     while(levelNode){
         InnerNode* head=levelNode->innerListHead;
         InnerNode* currInner=head;
         InnerNode* prevInner=currInner;
         cout<<setw(val)<<"";
         prevInner=prevLevel->innerListHead;
-        while(prevInner){
-            while(currInner){
+        int sayac=0;
+        //while(prevInner){
+            while(currInner&&prevInner){
             //cout<<setw(1+val*2-3)<<"";
                 if(prevInner->node->left!=nullptr && prevInner->node->right!=nullptr){
                     cout<<currInner->node->data;
-                    cout<<setw(1+ val*2 -3)<<"";
+                    cout<<setw(1+ val*2-3)<<"";
+                    sayac++;
                 }
                 else if(prevInner->node->left!=nullptr && prevInner->node->right==nullptr){
                     cout<<currInner->node->data;
-                    cout<<setw(1+ val*2 -3)<<"";
+                    cout<<setw(1+ val*2-3)<<"";
+                    cout<<setw(2+ val*2-3)<<"";
+                    prevInner=prevInner->next;
                 }
                 else if(prevInner->node->left==nullptr && prevInner->node->right!=nullptr){
-                    if(levelNode->level!=0) cout<<setw(1+val*2 -3)<<"";
+                    if(levelNode->level!=0) {
+                        cout<<setw(1+val*2)<<"";
+                        val=val*3;
+                    }
                     cout<<currInner->node->data;
-                    cout<<setw(1+ val*4 -3)<<"";
+                    cout<<setw(1+ val*2-3)<<"";
+                    prevInner=prevInner->next;
                 }
                 //prevInner=currInner;
+
                 currInner=currInner->next;
+                if(sayac==2) {
+                    prevInner=prevInner->next;
+                    sayac=0;
+                }
             }
-            prevInner=prevInner->next;
-        }
+        //}
         
         cout<<endl;
         currInner=head;
-        prevInner=prevLevel->innerListHead;
-        
-        while(prevInner){
-            while(currInner){
-                if(currInner->node->left!=nullptr && currInner->node->right!=nullptr){
-                    cout<<setw(val/2)<<"";
-                    for(int i=0;i<val;i++) cout<<"x";
-                    cout<<setw(val/2)<<"";
-                }
-                else if(currInner->node->left!=nullptr && currInner->node->right==nullptr){
-                    cout<<setw(val/2)<<"";
-                    for(int i=0;i<val/2;i++) cout<<".";
-                    cout<<setw(val-1)<<"";
-                }
-                else if(currInner->node->left==nullptr && currInner->node->right!=nullptr){
-                    cout<<setw(val)<<"";
-                    for(int i=0;i<val/2;i++) cout<<".";
-                    cout<<setw(val)<<"";
-                }
-                //prevInner=currInner;
-                currInner=currInner->next;
+        while(currInner){
+            if(currInner->node->left!=nullptr && currInner->node->right!=nullptr){
+                cout<<setw(val)<<"";
+                cout<<"|";
+                cout<<setw(val)<<"";
             }
-            prevInner=prevInner->next;
+            else if(currInner->node->left!=nullptr && currInner->node->right==nullptr){
+                cout<<setw(val)<<"";
+                cout<<"|";
+                cout<<setw(val-1)<<"";
+            }
+            else if(currInner->node->left==nullptr && currInner->node->right!=nullptr){
+                cout<<setw(val)<<"";
+                cout<<"|";
+                cout<<setw(val)<<"";
+            }
+            currInner=currInner->next;
         }
-
         cout<<endl;
+
+        currInner=head;
+        while(currInner){
+            if(currInner->node->left!=nullptr && currInner->node->right!=nullptr){
+                cout<<setw(val/2)<<"";
+                for(int i=0;i<val;i++) cout<<".";
+                cout<<setw(val/2)<<"";
+            }
+            else if(currInner->node->left!=nullptr && currInner->node->right==nullptr){
+                cout<<setw(val/2)<<"";
+                for(int i=0;i<val/2;i++) cout<<"<";
+                cout<<setw(val-1)<<"";
+            }
+            else if(currInner->node->left==nullptr && currInner->node->right!=nullptr){
+                cout<<setw(val)<<"";
+                for(int i=0;i<val/2;i++) cout<<">";
+                cout<<setw(val)<<"";
+            }
+            currInner=currInner->next;
+        }
+        cout<<endl;
+
         val=val/2;
-        // cout<<levelNode->level<<endl;
-        // cout<<prevLevel->level<<endl;
         prevLevel=levelNode;
         levelNode=levelNode->next;
     }
