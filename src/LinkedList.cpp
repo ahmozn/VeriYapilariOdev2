@@ -133,6 +133,8 @@ void LinkedList::agacEkle(const BST& bst, int satir){
         last->next=newNode;
         last=newNode;
     }
+    newNode->tree.doldurAll(newNode->tree.getRoot(),' ');
+    newNode->tree.updateLevels(newNode->tree.getRoot(),newNode->tree.getLevelsList(),0);
 }
 
 //listeden ağaç siler
@@ -207,7 +209,7 @@ void LinkedList::agacCiz(int index){
     for(int i=0; temp!=nullptr && i<index; i++){
         temp=temp->next;
     }
-    temp->tree.treeprint();
+    temp->tree.yaz();
 }
 
 //ağacı ters çevirme fonksiyonu

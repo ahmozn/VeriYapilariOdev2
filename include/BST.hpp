@@ -40,10 +40,14 @@ class BST{
         int printlv(int n);
         void displv(BSTNode* p, int lv, int d);
 
+        void doldur(BSTNode* root, char chr);
+        void doldurLevel(BSTNode* root, int level, char chr);
+        void doldurAll(BSTNode* root, char chr);
         void yaz();
 
         Queue* lot(BSTNode* root);
         OuterList* getLevelsList();
+        void updateLevels(BSTNode* root, OuterList* outerlist, int level);
 
 
         BST();   //constructor
