@@ -283,11 +283,7 @@ void BST::yaz(){
     OuterNode* levelNode= levels->head;
     OuterNode* prevLevel=levelNode;
 
-    cout<<endl;
-    levels->print();
-    cout<<endl;
-
-    int val=pow(2,height(root)+1);
+    int val=pow(2,height(root));
     while(levelNode){
         InnerNode* head=levelNode->innerListHead;
         InnerNode* currInner=head;
@@ -315,7 +311,7 @@ void BST::yaz(){
                 cout<<"   ";
                 cout<<setw(val*2-3)<<"";
             }else{
-                cout<<" | ";
+                cout<<" . ";
                 cout<<setw(val*2 -3)<<"";
             }
             currInner=currInner->next;
@@ -331,12 +327,12 @@ void BST::yaz(){
                 //cout<<setw(val/2+1)<<"";
             }
             else if(currInner->node->left->data!=' ' && currInner->node->right->data==' '){
-                for(int i=0;i<=val/2;i++) cout<<"<";
+                for(int i=0;i<=val/2;i++) cout<<".";
                 cout<<setw(val/2)<<"";
             }
             else if(currInner->node->left->data==' ' && currInner->node->right->data!=' '){
                 cout<<setw(val/2)<<"";
-                for(int i=0;i<=val/2;i++) cout<<">";
+                for(int i=0;i<=val/2;i++) cout<<".";
             }else{
                 cout<<setw(val+1)<<"";
             }
