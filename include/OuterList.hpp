@@ -17,12 +17,8 @@ class OuterList{
         int currentLevel;       
         OuterNode* head;   
 
-        InnerNode* addInnerListNode(InnerNode* head, BSTNode* node);
-        InnerNode* addInnerNode(InnerNode* head, BSTNode* node);
-        void addLevel();
         void addLeaf(int level, BSTNode* node);
         void print();
-        OuterNode* getOuterNodeHead();
 
         OuterList();  //constructor
         ~OuterList();          //destructor

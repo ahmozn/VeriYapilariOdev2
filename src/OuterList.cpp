@@ -11,19 +11,6 @@
 
 using namespace std;
 
-InnerNode* OuterList::addInnerListNode(InnerNode* head, BSTNode* node){
-    InnerNode* newNode=new InnerNode(node);
-    if(OuterList::head==nullptr){
-        
-    }
-}
-
-InnerNode* OuterList::addInnerNode(InnerNode* head, BSTNode* node) {
-        InnerNode* newNode = new InnerNode(node);
-        newNode->next = head;
-        return newNode;
-    }
-
 // Belirli bir seviyeye yaprak ekle
     void OuterList::addLeaf(int level, BSTNode* node) {
         OuterNode* current = head;
