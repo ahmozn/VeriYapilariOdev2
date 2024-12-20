@@ -64,8 +64,6 @@ int main(){
     do
     {
         system("CLS");
-        currentTree.getLevelsList()->print();
-        cout<<endl;
         agaclar.ekranaBas(startIndex,endIndex);
         agaclar.dugumGosterici(index);
         agaclar.agacCiz(startIndex+index);
