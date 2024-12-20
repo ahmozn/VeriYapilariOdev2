@@ -153,29 +153,31 @@ int BST::height(BSTNode* root){
 
 void BST::treeprint(){
     int i=0;
-    //Queue* q=lot(root);
-    //QueueNode* qtmp=q->getFirst();
-    //BSTNode* temp=q->frontNodeValue();
     BSTNode* temp=getRoot();
     while(i<height(getRoot())){
         int val=printlv(i);
+        if(i<height(getRoot())-1){
+            for(int y=0; y<pow(2,i); y++){
+                cout<<setw(2+val)<<"|";
+                cout<<setw(val-2)<<"";
+            }
+        }
+        cout<<endl;
         if(i==0){
             if(temp->left!=nullptr&&temp->right!=nullptr){
                 cout<<setw(1+val/2)<<"";
-                for(int i=0;i<=val;i++) cout<<"x";
+                for(int i=0;i<=val;i++) cout<<".";
             }
             else if(temp->left!=nullptr){
                 cout<<setw(1+val/2)<<"";
-                for(int i=0;i<=val/2;i++) cout<<"x";
-                //temp=temp->left;
+                for(int i=0;i<=val/2;i++) cout<<"<";
             }
             else if(temp->right!=nullptr){
                 cout<<setw(1+val)<<"";
-                for(int i=0;i<=val/2;i++) cout<<"x";
-                //temp=temp->right;
+                for(int i=0;i<=val/2;i++) cout<<">";
             }
         }
-        else if(i>0){
+        else if(i>0 && i<height(getRoot())-1){
             if(i==1){
                 cout<<setw(1+val/2)<<"";
                 for(int y=0;y<2;y++){
@@ -190,8 +192,6 @@ void BST::treeprint(){
                 }
             }
         }
-        // qtmp=qtmp->next;
-        // if(qtmp!=nullptr)temp=qtmp->treeNode;
         i++;
         cout<<endl;
     }
@@ -207,7 +207,7 @@ void BST::yaz(){
     levels->print();
     cout<<endl;
 
-    int val=pow(2,height(root)-1);
+    int val=pow(2,height(root));
     while(levelNode){
         InnerNode* head=levelNode->innerListHead;
         InnerNode* currInner=head;
@@ -237,6 +237,11 @@ void BST::yaz(){
                     cout<<currInner->node->data;
                     cout<<setw(1+ val*2-3)<<"";
                     prevInner=prevInner->next;
+                }else{
+                    cout<<"";
+                    cout<<setw(1+ val*2-3)<<"";
+                    cout<<"";
+                    cout<<setw(1+ val*2-3)<<"";
                 }
                 //prevInner=currInner;
 
@@ -259,11 +264,15 @@ void BST::yaz(){
             else if(currInner->node->left!=nullptr && currInner->node->right==nullptr){
                 cout<<setw(val)<<"";
                 cout<<"|";
-                cout<<setw(val-1)<<"";
+                cout<<setw(2*val-1)<<"";
             }
             else if(currInner->node->left==nullptr && currInner->node->right!=nullptr){
                 cout<<setw(val)<<"";
                 cout<<"|";
+                cout<<setw(val)<<"";
+            }else{
+                cout<<setw(val)<<"";
+                cout<<"";
                 cout<<setw(val)<<"";
             }
             currInner=currInner->next;
@@ -280,11 +289,16 @@ void BST::yaz(){
             else if(currInner->node->left!=nullptr && currInner->node->right==nullptr){
                 cout<<setw(val/2)<<"";
                 for(int i=0;i<val/2;i++) cout<<"<";
-                cout<<setw(val-1)<<"";
+                cout<<setw(2*val-1)<<"";
             }
             else if(currInner->node->left==nullptr && currInner->node->right!=nullptr){
                 cout<<setw(val)<<"";
                 for(int i=0;i<val/2;i++) cout<<">";
+                cout<<setw(val)<<"";
+            }
+            else{
+                cout<<setw(val)<<"";
+                for(int i=0;i<val/2;i++) cout<<" ";
                 cout<<setw(val)<<"";
             }
             currInner=currInner->next;
@@ -308,12 +322,10 @@ void BST::yaz(){
 
 int BST::printlv(int n){
     BSTNode* temp=getRoot();
-    int val= pow(2,height(root)- n+2);
+    int val= pow(2,height(root)- n);
     cout<<setw(val)<<"";
     displv(temp,n,val);
     cout<<endl;
-    //cout<<setw(1+val/2)<<"";
-    //for(int i=0;i<val/2+1;i++) cout<<".";
     return val;
 }
 
@@ -324,7 +336,7 @@ void BST::displv(BSTNode* p, int lv, int d){
     if (lv == 0){
         if (p == NULL){
 
-            cout << " x ";
+            cout << " - ";
             cout << setw(disp -3) << "";
             return;
         }
