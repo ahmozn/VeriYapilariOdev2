@@ -15,8 +15,8 @@ class LinkedListNode;
 
 class LinkedList{
     private: 
-        LinkedListNode* head;               //
-        LinkedListNode* last;               //
+        LinkedListNode* head;               //liste başı
+        LinkedListNode* last;               //liste sonu
         void adres(int start, int end);     //düğümlerin adres değerlerini yazdıran private fonksiyon
         void deger(int start, int end);     //ağaç değerlerini yazdıran private fonksiyon
         void adresNext(int start, int end); //düğümlerin sonraki düğümü gösteren pointerlarını yazdıran private fonksiyon
@@ -26,9 +26,8 @@ class LinkedList{
         void agacSil(int index);                  //listeden ağaç silme
         int agacSayisi();                         //toplam ağaç sayısı
 
-        void agacCiz(int index);//güncellenecek
+        void agacCiz(int index);                  //ilgili ağacı çizer
         void tersCevir(int index);                //düğümdeki ağacı ters çevirir
-        void agacyaz()const;//atıl
         void ekranaBas(int start, int end);       //listeyi ekrana basar
         void dugumGosterici(int index);           //bulunulan düğümü parmakla gösterir
 

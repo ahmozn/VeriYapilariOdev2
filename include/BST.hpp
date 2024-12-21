@@ -10,7 +10,6 @@
 #define BST_HPP
 
 #include "BSTNode.hpp"
-#include "Queue.hpp"
 #include "OuterList.hpp"
 
 class BSTNode;
@@ -18,36 +17,28 @@ class BSTNode;
 class BST{
     private: 
         BSTNode* root;    //kök düğüm      
-        OuterList* levels; 
+        OuterList* levels; //seviyeler listesi
 
         BSTNode* dugumEkle(BSTNode* node, char chr, int level);    //düğüm eklemek için private fonksiyon
         void ayna(BSTNode* root);                       //aynalamak için private fonksiyon
         void agacSil(BSTNode* node);                    //silmek için private fonksiyon
-        void agacCiz(BSTNode* root, int level=0, int space=0);  //güncellenecek
+        void agacCiz();                                 //ağaç çizmek için private fonksiyon
 
-        void tyaz(BSTNode* node) const; //atıl
+        void doldurLevel(BSTNode* root, int level, char chr);   //ilgili seviyedeki boş düğümleri doldurmak için fonksiyon
+        void updateLevels();                            //ağaçtaki her seviyenin düğümlerini ters çeviren fonksiyon
     public:
-        BSTNode* ekle(char chr);                            //düğüm ekle public
+        BSTNode* ekle(char chr);                        //düğüm ekle public
         void aynala();                                  //aynala public
-        void ciz(int level=0, int space=0);             //güncellenecek
+        void ciz();                                     //ağaç çiz public
         int toplam(BSTNode* root, bool isLeft=false);   //ağaç değerini döndürür
-        BSTNode* getRoot() const;                       //ağaç kök düğümünü döndürür
-
-        void yazdir()const;//atıl
         int height(BSTNode* root);                      //ağacın yüksekliğini döndürür
-        
-        void treeprint();
-        int printlv(int n);
-        void displv(BSTNode* p, int lv, int d);
 
-        void doldur(BSTNode* root, char chr);
-        void doldurLevel(BSTNode* root, int level, char chr);
-        void doldurAll(BSTNode* root, char chr);
-        void yaz();
 
-        Queue* lot(BSTNode* root);
-        OuterList* getLevelsList();
-        void updateLevels(BSTNode* root, OuterList* outerlist, int level);
+        void updateLevels(BSTNode* root, OuterList* outerlist, int level); //boş düğümler doldurulduktan sonra OuterList listesini günceller
+        void doldurAll(BSTNode* root, char chr);        //ağaç yüksekliğince her level için doldurma işlemi yapılır
+
+        BSTNode* getRoot() const;                       //ağaç kök düğümünü döndürür
+        OuterList* getLevelsList();                     //ağacın OuterList'ini döndürür
 
 
         BST();   //constructor

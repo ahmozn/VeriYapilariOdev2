@@ -14,13 +14,13 @@
 
 class OuterList{
     public:
-        int currentLevel;       
-        OuterNode* head;   
+        int currentLevel; 
+        OuterNode* head;   //seviyeleri tutan düğümün başı
 
-        void addLeaf(int level, BSTNode* node);
-        void print();
+        void addLeaf(int level, BSTNode* node); //yaprakları iç listeye ekler
+        void reverseInnerList(int level);       //yaprakların olduğu listeyi ters çevirir
 
         OuterList();  //constructor
-        ~OuterList();          //destructor
+        ~OuterList(); //destructor
 };
 #endif

@@ -12,7 +12,7 @@
 
 using namespace std;
 
-//--------------------------PRIVATE--------------------------
+//-------------------------------------------------------------------PRIVATE-----
 
 //liste yazdırırmada adresleri yazdırır
 void LinkedList::adres(int start, int end){
@@ -103,20 +103,7 @@ void LinkedList::adresNext(int start, int end){
     cout<<endl;
 }
 
-//--------------------------PUBLIC--------------------------
-
-//atıl
-LinkedListNode* LinkedList::agacbul(int index){
-    LinkedListNode* temp=head;
-    if(temp==nullptr){
-        return temp;//değişecek
-    }
-    while(temp!=nullptr && temp->index!=index){
-        temp=temp->next;
-    }
-    cout<<"bulunan dugum"<<temp<<endl;
-    return temp;
-}
+//--------------------------------------------------------------------PUBLIC-----
 
 //listeye ağaç ekler
 void LinkedList::agacEkle(const BST& bst, int satir){
@@ -209,7 +196,7 @@ void LinkedList::agacCiz(int index){
     for(int i=0; temp!=nullptr && i<index; i++){
         temp=temp->next;
     }
-    temp->tree.yaz();
+    temp->tree.ciz();
 }
 
 //ağacı ters çevirme fonksiyonu
@@ -224,19 +211,7 @@ void LinkedList::tersCevir(int index){
     {
         temp=temp->next;
     }
-    temp->tree.aynala(); //BST sınıfının fonksiyonu çağrılır
-}
-
-//atıl
-void LinkedList::agacyaz()const {
-    LinkedListNode* temp = head;
-    int treeCount = 1;
-    while (temp != nullptr) {
-        cout << "Tree " << temp->index << ": ";
-        temp->tree.yazdir();
-        temp = temp->next;
-        treeCount++;
-    }
+    temp->tree.aynala(); //aynalama yapılır
 }
 
 //listeyi ekrana yazar, belirtilen index aralığını kullanır
@@ -244,7 +219,6 @@ void LinkedList::ekranaBas(int start=0, int end=10){
     adres(start,end);
     deger(start,end);
     adresNext(start,end);
-    //ağaç yazdırma fonk eklenecek
 }
 
 //listede bulunulan düğümü gösterir

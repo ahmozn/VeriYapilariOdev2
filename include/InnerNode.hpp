@@ -13,10 +13,10 @@
 
 class InnerNode{
     public:
-        BSTNode* node;
-        InnerNode* next;
+        BSTNode* node;      //yaprak
+        InnerNode* next;    //aynı seviyedeki sonraki yaprak
 
         InnerNode(BSTNode* node);  //constructor
-        ~InnerNode();          //destructor
+        ~InnerNode();              //destructor
 };
 #endif

@@ -13,10 +13,10 @@
 
 class OuterNode{
     public:
-        int level;         
-        InnerNode* innerListHead;
-        InnerNode* innerListLast;
-        OuterNode* next;   
+        int level;                  //seviye bilgisi
+        InnerNode* innerListHead;   //iç liste başı
+        InnerNode* innerListLast;   //iç liste sonu
+        OuterNode* next;            //sonraki seviye düğümü
 
         OuterNode(int level);  //constructor
         ~OuterNode();          //destructor

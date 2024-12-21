@@ -12,7 +12,6 @@
 #include "LinkedList.hpp"
 #include <iostream>
 #include <fstream>
-#include <chrono>
 
 using namespace std;
 
@@ -22,23 +21,16 @@ int main(){
     int endIndex=10;
     int index=0;
 
-
     ifstream fileAgaclar("agaclar.txt");
     if(!fileAgaclar){
         cerr<<"Dosya acilamadi"<<endl;
         return 1;
     }
 
-    system("CLS");
-
-    auto start=chrono::high_resolution_clock::now(); //okuma ekleme süresi hesaplayici
-    cout<<"agaclar.txt okunuyor..."<<endl;
-
-
     char ch;
     int satir=0;
     BST currentTree;
-    while(fileAgaclar.get(ch)){
+    while(fileAgaclar.get(ch)){ //agaclar.txt'den karakter karakter okuyarak ağaç oluşturma
         if(ch=='\n'){
             cout<<currentTree.height(currentTree.getRoot())<<endl;
             agaclar.agacEkle(currentTree,satir);
@@ -49,16 +41,10 @@ int main(){
             currentTree.ekle(ch);
         }
     }
-    if (currentTree.getRoot() != nullptr) {
+    if (currentTree.getRoot() != nullptr) { //son ağaç da eklenir
         agaclar.agacEkle(currentTree,satir);
     }
-
-    auto end=chrono::high_resolution_clock::now();
-    auto duration=chrono::duration_cast<chrono::milliseconds>(end-start);
-    cout<<duration.count()<<" ms"<<endl; //okuma ekleme işlemi ne kadar sürdü
     fileAgaclar.close();    //agaclar.txt kapatıldı
-
-    agaclar.agacyaz();
 
     char secim;
     do
@@ -71,6 +57,7 @@ int main(){
         cin>>secim;
         switch (secim)
         {
+        //küçük veya büyük a basıldığında sola kayar
         case 'a':
         case 'A':
             index--;
@@ -81,7 +68,7 @@ int main(){
             }
             if(index<0) index=0;
             break;
-        
+        //küçük veya büyük d basıldığında sola kayar
         case 'd':
         case 'D':
             index++;
@@ -93,6 +80,7 @@ int main(){
             else if(startIndex>0 && index>agaclar.agacSayisi()-startIndex-1)  index--;
             else if(index>agaclar.agacSayisi()-1)                   index=agaclar.agacSayisi()-1;
             break;
+        //küçük veya büyük s basıldığında bulunulan ağacı siler
         case 's':
         case 'S':
             agaclar.agacSil(startIndex+index);
@@ -104,11 +92,12 @@ int main(){
             }
             if(index<0) index=0;
             break;
+        //küçük veya büyük w basıldığında bulunulan ağacı aynalar
         case 'w':
         case 'W':
             agaclar.tersCevir(startIndex+index);
             break;
-        
+        //küçük veya büyük q basıldığında programdan çıkar
         case 'q':
         case 'Q':
             cout<<"Cikis Secildi."<<endl;

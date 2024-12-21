@@ -11,52 +11,61 @@
 
 using namespace std;
 
-// Belirli bir seviyeye yaprak ekle
-    void OuterList::addLeaf(int level, BSTNode* node) {
-        OuterNode* current = head;
-        OuterNode* prev = nullptr;
+//belirli bir seviyeye yaprak ekler
+void OuterList::addLeaf(int level, BSTNode* node) {
+    OuterNode* current = head;
+    OuterNode* prev = nullptr;
 
-        // Seviyeyi bul veya oluştur
-        while (current != nullptr && current->level != level) {
-            prev = current;
-            current = current->next;
-        }
-
-        if (current == nullptr) {
-            // Yeni seviye oluştur
-            current = new OuterNode(level);
-            if (prev) prev->next = current;
-            else head = current;
-        }
-
-        // Eğer içerik varsa son düğümü bul ve ekle
-        InnerNode* newNode = new InnerNode(node);
-        if (current->innerListLast == nullptr) {
-            current->innerListHead = newNode;  // Liste boşsa yeni düğüm baş olur
-        } else {
-            current->innerListLast->next = newNode;  // Son düğümün next'ine ekle
-        }
-        current->innerListLast = newNode;
-
-
-        // İç listeye eleman ekle
-        //current->innerListHead = addInnerNode(current->innerListHead, node);
+    //seviye bulunur
+    while (current != nullptr && current->level != level) {
+        prev = current;
+        current = current->next;
     }
 
-    // Seviyeleri yazdır
-    void OuterList::print() {
-        OuterNode* currentOuter = head;
-        while (currentOuter) {
-            cout << "Seviye " << currentOuter->level << ": ";
-            InnerNode* currentInner = currentOuter->innerListHead;
-            while (currentInner) {
-                cout << currentInner->node->data << " ";
-                currentInner = currentInner->next;
-            }
-            cout << endl;
-            currentOuter = currentOuter->next;
-        }
+    //yeni seviye oluşturulur
+    if (current == nullptr) {
+        current = new OuterNode(level);
+        if (prev) prev->next = current;
+        else head = current;
     }
+
+    //eğer içerik varsa sona eklenir
+    InnerNode* newNode = new InnerNode(node);
+    if (current->innerListLast == nullptr) {
+        current->innerListHead = newNode;  //liste boşsa yeni düğüm baş olur
+    } else {
+        current->innerListLast->next = newNode; 
+    }
+    current->innerListLast = newNode;
+}
+
+//yaprakların olduğu listeyi aynalama işlemi sonrası tersler
+void OuterList::reverseInnerList(int level) {
+    OuterNode* currentOuter = head;
+    
+    //belirtilen seviyeye gidilir
+    while (currentOuter != nullptr && currentOuter->level != level) {
+        currentOuter = currentOuter->next;
+    }
+
+    if (currentOuter != nullptr) {
+        InnerNode* prev = nullptr;
+        InnerNode* curr = currentOuter->innerListHead;
+        InnerNode* next = nullptr;
+
+        //iç listeyi ters çevirme
+        while (curr != nullptr) {
+            next = curr->next;  
+            curr->next = prev;  
+            prev = curr;        
+            curr = next;        
+        }
+
+        //başı ve sonu değiştir
+        currentOuter->innerListHead = prev;  
+        currentOuter->innerListLast = curr;  
+    }
+}
 
 OuterList::OuterList():head(nullptr), currentLevel(0){}
 OuterList::~OuterList(){}
