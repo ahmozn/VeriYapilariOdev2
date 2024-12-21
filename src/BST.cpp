@@ -182,14 +182,16 @@ int BST::toplam(BSTNode* root, bool isLeft){
     int rightSum=toplam(root->right,false);
 
     int deger;
-    //sol düğümse 2 ile çarparak al
-    if(isLeft){
-        deger=root->data*2;
-    }
-    //sağ düğümse olduğu gibi al
-    else{
-        deger=root->data;
-    }
+    if(root->data!=' '){//doldurma sonrası toplamda fark olmaması için doldurma değerleri atlıyoruz
+        //sol düğümse 2 ile çarparak al
+        if(isLeft){
+            deger=root->data*2;
+        }
+        //sağ düğümse olduğu gibi al
+        else{
+            deger=root->data;
+        }
+    }else deger=0;
 
     return leftSum+deger+rightSum; //yaprağın değerini toplam değere ekle
 }
