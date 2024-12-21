@@ -1,7 +1,7 @@
 all: derle calistir
 
-derle: lib/Program.o lib/LinkedList.o lib/LinkedListNode.o lib/BST.o lib/BSTNode.o lib/OuterList.o lib/OuterNode.o lib/InnerNode.o
-	g++ -I ./include/ -o ./bin/Program lib/Program.o lib/LinkedList.o lib/LinkedListNode.o lib/BST.o lib/BSTNode.o lib/OuterList.o lib/OuterNode.o lib/InnerNode.o
+derle: lib/Program.o lib/LinkedList.o lib/LinkedListNode.o lib/BST.o lib/BSTNode.o lib/LevelList.o lib/LevelNode.o lib/InnerNode.o
+	g++ -I ./include/ -o ./bin/Program lib/Program.o lib/LinkedList.o lib/LinkedListNode.o lib/BST.o lib/BSTNode.o lib/LevelList.o lib/LevelNode.o lib/InnerNode.o
 
 lib/Program.o: ./src/Program.cpp
 	g++ -I ./include/ -c ./src/Program.cpp -o lib/Program.o
@@ -18,11 +18,11 @@ lib/BST.o: ./src/BST.cpp
 lib/BSTNode.o: ./src/BSTNode.cpp
 	g++ -I ./include/ -c ./src/BSTNode.cpp -o lib/BSTNode.o
 
-lib/OuterList.o: ./src/OuterList.cpp
-	g++ -I ./include/ -c ./src/OuterList.cpp -o lib/OuterList.o
+lib/LevelList.o: ./src/LevelList.cpp
+	g++ -I ./include/ -c ./src/LevelList.cpp -o lib/LevelList.o
 
-lib/OuterNode.o: ./src/OuterNode.cpp
-	g++ -I ./include/ -c ./src/OuterNode.cpp -o lib/OuterNode.o
+lib/LevelNode.o: ./src/LevelNode.cpp
+	g++ -I ./include/ -c ./src/LevelNode.cpp -o lib/LevelNode.o
 
 lib/InnerNode.o: ./src/InnerNode.cpp
 	g++ -I ./include/ -c ./src/InnerNode.cpp -o lib/InnerNode.o

@@ -10,14 +10,14 @@
 #define BST_HPP
 
 #include "BSTNode.hpp"
-#include "OuterList.hpp"
+#include "LevelList.hpp"
 
 class BSTNode;
 
 class BST{
     private: 
         BSTNode* root;    //kök düğüm      
-        OuterList* levels; //seviyeler listesi
+        LevelList* levels; //seviyeler listesi
 
         BSTNode* dugumEkle(BSTNode* node, char chr, int level);    //düğüm eklemek için private fonksiyon
         void ayna(BSTNode* root);                       //aynalamak için private fonksiyon
@@ -34,11 +34,11 @@ class BST{
         int height(BSTNode* root);                      //ağacın yüksekliğini döndürür
 
 
-        void updateLevels(BSTNode* root, OuterList* outerlist, int level); //boş düğümler doldurulduktan sonra OuterList listesini günceller
+        void updateLevels(BSTNode* root, LevelList* LevelList, int level); //boş düğümler doldurulduktan sonra LevelList listesini günceller
         void doldurAll(BSTNode* root, char chr);        //ağaç yüksekliğince her level için doldurma işlemi yapılır
 
         BSTNode* getRoot() const;                       //ağaç kök düğümünü döndürür
-        OuterList* getLevelsList();                     //ağacın OuterList'ini döndürür
+        LevelList* getLevelsList();                     //ağacın LevelList'ini döndürür
 
 
         BST();   //constructor

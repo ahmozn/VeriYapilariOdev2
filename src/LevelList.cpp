@@ -1,20 +1,20 @@
 /**
- * @file         OuterList.cpp
+ * @file         LevelList.cpp
  * @description  Yaprakları seviyelerine göre listelerde tutan listenin kaynak dosyası. İç içe liste olarak gerçeklenir.
  * @course       2. Öğretim A grubu
  * @assignment   2024-2025 Güz, 2. Ödev
  * @date         18.12.2024
  * @author       Ahmet Özhan ÖZEN   ozhan.ozen@ogr.sakarya.edu.tr
  */
-#include "OuterList.hpp"
+#include "LevelList.hpp"
 #include <iostream>
 
 using namespace std;
 
 //belirli bir seviyeye yaprak ekler
-void OuterList::addLeaf(int level, BSTNode* node) {
-    OuterNode* current = head;
-    OuterNode* prev = nullptr;
+void LevelList::addLeaf(int level, BSTNode* node) {
+    LevelNode* current = head;
+    LevelNode* prev = nullptr;
 
     //seviye bulunur
     while (current != nullptr && current->level != level) {
@@ -24,7 +24,7 @@ void OuterList::addLeaf(int level, BSTNode* node) {
 
     //yeni seviye oluşturulur
     if (current == nullptr) {
-        current = new OuterNode(level);
+        current = new LevelNode(level);
         if (prev) prev->next = current;
         else head = current;
     }
@@ -40,8 +40,8 @@ void OuterList::addLeaf(int level, BSTNode* node) {
 }
 
 //yaprakların olduğu listeyi aynalama işlemi sonrası tersler
-void OuterList::reverseInnerList(int level) {
-    OuterNode* currentOuter = head;
+void LevelList::reverseInnerList(int level) {
+    LevelNode* currentOuter = head;
     
     //belirtilen seviyeye gidilir
     while (currentOuter != nullptr && currentOuter->level != level) {
@@ -67,5 +67,5 @@ void OuterList::reverseInnerList(int level) {
     }
 }
 
-OuterList::OuterList():head(nullptr), currentLevel(0){}
-OuterList::~OuterList(){}
+LevelList::LevelList():head(nullptr), currentLevel(0){}
+LevelList::~LevelList(){}

@@ -61,9 +61,8 @@ void BST::agacSil(BSTNode* node){
 void BST::agacCiz(){
     BSTNode* root=getRoot();
 
-    OuterList* levels=getLevelsList();
-    OuterNode* levelNode= levels->head;
-    OuterNode* prevLevel=levelNode;
+    LevelList* levels=getLevelsList();
+    LevelNode* levelNode= levels->head;
 
     int val=pow(2,height(root));
     while(levelNode){ //her seviye için yazdırma yapılır
@@ -125,7 +124,6 @@ void BST::agacCiz(){
         cout<<endl;
 
         val=val/2;
-        prevLevel=levelNode;
         levelNode=levelNode->next;
     }
     cout<<endl;
@@ -210,8 +208,8 @@ int BST::height(BSTNode* root){
     return (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
 }
 
-//boş düğümler doldurulduktan sonra OuterList listesini günceller
-void BST::updateLevels(BSTNode* root, OuterList* outerlist, int level){
+//boş düğümler doldurulduktan sonra LevelList listesini günceller
+void BST::updateLevels(BSTNode* root, LevelList* LevelList, int level){
     if (root == nullptr) return;
 
     levels->addLeaf(level, root);
@@ -234,15 +232,15 @@ BSTNode* BST::getRoot() const{
     return root;
 }
 
-//yazdırma için gereken OuterList listesini döndürür
-OuterList* BST::getLevelsList(){
+//yazdırma için gereken LevelList listesini döndürür
+LevelList* BST::getLevelsList(){
     return levels;
 }
 
 
 
 //constructor
-BST::BST():root(nullptr), levels(new OuterList()){}
+BST::BST():root(nullptr), levels(new LevelList()){}
 //destructor
 BST::~BST(){
     //agacSil(root);
