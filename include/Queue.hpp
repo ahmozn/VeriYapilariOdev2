@@ -18,12 +18,14 @@ class Queue{
     private:
         QueueNode* frontNode;   //kuyruk önündeki düğüm
         QueueNode* rearNode;    //kuyruk sonundaki düğüm
+        int count;
     public:
         void enqueue(BSTNode* tNode);  //eleman ekleme
         void dequeue();                         //eleman çıkarma
         BSTNode* frontNodeValue();              //ön elemanı alma
         int frontLevel();                       //ön elemanın level'ını alma
         bool empty();                           //boş dolu kontrolü
+        int size();
 
         QueueNode* getFirst();
 

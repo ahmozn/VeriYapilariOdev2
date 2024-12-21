@@ -18,6 +18,7 @@ void Queue::enqueue(BSTNode* tNode){
         rearNode->next = newNode;
         rearNode = newNode;
     }
+    count++;
 }
 
 void Queue::dequeue(){
@@ -30,6 +31,7 @@ void Queue::dequeue(){
         rearNode = nullptr; //kuyruk boşaldığında rear güncellenir
     }
     delete temp;
+    count--;
 }
 
 BSTNode* Queue::frontNodeValue(){
@@ -54,5 +56,9 @@ bool Queue::empty(){
     return frontNode==nullptr;
 }
 
-Queue::Queue():frontNode(nullptr), rearNode(nullptr){}
+int Queue::size(){
+    return count;
+}
+
+Queue::Queue():frontNode(nullptr), rearNode(nullptr), count(0){}
 Queue::~Queue(){}
